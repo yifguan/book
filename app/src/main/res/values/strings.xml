@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Book</string>
+    <string name="tab_bookcase">我的书柜</string>
+    <string name="tab_bookmarket">书香集市</string>
 </resources>

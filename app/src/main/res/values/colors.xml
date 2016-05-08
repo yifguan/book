@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+        <color name="colorPrimary">#3F51B5</color>
+        <color name="colorPrimaryDark">#303F9F</color>
+        <color name="colorAccent">#FF4081</color>
+        <color name="tab_press">#329CC8</color>
+        <color name="tab_unpress">#898989</color>
+        <color name="appgreen">#06c1ae</color>
+        <color name="text_topmenu">#FFFFFF</color>
+
+        <color name="white">#FFFFFFFF</color>
+        <color name="blue">#329CC8</color>
+        <color name="black">#000000</color><!--黑色 -->
+        <color name="mine_item_grey">#898989</color>
+
+        <color name="app_primary">#06c1ae</color>
+        <color name="app_primary_pressed">#96c1ae</color>
+        <color name="app_ripple">#06a1ae</color>
+
+        <color name="refresh_grey">#ddd</color>
+
+        <color name="yellow">#FFFF00</color><!--黄色 -->
+        <color name="red">#FFFF0000</color>
+        <color name="orange_bg">#ff6900</color>
+        <color name="darker_gray">#aaa</color>
+        <color name="transparent">#00000000</color>
+
 </resources>

@@ -10,11 +10,18 @@ package com.demo.book;
 import android.app.Application;
 
 import com.avos.avoscloud.AVOSCloud;
+import com.avos.avoscloud.AVObject;
+import com.demo.book.bean.BookInfo;
+import com.demo.book.cons.Leancloud;
+import com.demo.book.utils.LogUtil;
 
 public class BookApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        AVOSCloud.initialize(this, "fN9leiIzSqLGtVLjlitB6q3S-gzGzoHsz", "I5OA40LjDpCGfRbHnJDUtSD4");
+
+        LogUtil.d("test for upload");
+        AVObject.registerSubclass(BookInfo.class);
+        AVOSCloud.initialize(this, Leancloud.KEY, Leancloud.VALUE);
     }
 }

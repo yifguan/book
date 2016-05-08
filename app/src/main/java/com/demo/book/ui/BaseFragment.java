@@ -7,8 +7,9 @@
  */
 package com.demo.book.ui;
 
-import android.app.Fragment;
+
 import android.os.Build;
+import android.support.v4.app.Fragment;
 
 import com.demo.book.utils.LogUtil;
 
@@ -33,12 +34,12 @@ public abstract class BaseFragment extends Fragment {
     }
 
     protected void onVisible() {
-        lazyload();
+        lazyLoad();
     }
 
     protected void onInvisible() {
 
     }
 
-    protected abstract void lazyload();
+    protected abstract void lazyLoad();
 }
