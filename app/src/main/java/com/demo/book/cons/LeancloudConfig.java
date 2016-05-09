@@ -7,7 +7,7 @@
  */
 package com.demo.book.cons;
 
-public class Leancloud {
-    public final static String KEY = "fN9leiIzSqLGtVLjlitB6q3S-gzGzoHsz";
-    public final static String VALUE = "I5OA40LjDpCGfRbHnJDUtSD4";
+public class LeancloudConfig {
+    public final static String APP_ID = "fN9leiIzSqLGtVLjlitB6q3S-gzGzoHsz";
+    public final static String APP_KEY = "I5OA40LjDpCGfRbHnJDUtSD4";
 }

@@ -16,8 +16,6 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.demo.book.R;
-import com.handmark.pulltorefresh.library.PullToRefreshBase;
-import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
 import java.util.Timer;
 
@@ -31,8 +29,6 @@ public class BookcaseFragment extends BaseFragment {
     private Timer autoUpdate;
     private Handler mHandler;
     private static int index;
-
-    private PullToRefreshListView pullToRefreshView;
 
     @Nullable
     @Override
@@ -49,13 +45,6 @@ public class BookcaseFragment extends BaseFragment {
             parent.removeView(mFragmentView);
         }
 
-        pullToRefreshView = (PullToRefreshListView) mFragmentView.findViewById(R.id.bookcasePtrlist);
-        pullToRefreshView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
-            @Override
-            public void onRefresh(PullToRefreshBase<ListView> refreshView) {
-                // Do work to refresh the list here.
-            }
-        });
         return mFragmentView;
     }
 

@@ -12,6 +12,8 @@ import com.avos.avoscloud.AVObject;
 
 @AVClassName("BookInfo")
 public class BookInfo extends AVObject{
+    public static final Creator CREATOR = AVObjectCreator.instance;
+
     private String owner;   //书籍所有者
     private String status;  //书籍的状态
     private String name;

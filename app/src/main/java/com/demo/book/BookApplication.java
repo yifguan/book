@@ -12,7 +12,7 @@ import android.app.Application;
 import com.avos.avoscloud.AVOSCloud;
 import com.avos.avoscloud.AVObject;
 import com.demo.book.bean.BookInfo;
-import com.demo.book.cons.Leancloud;
+import com.demo.book.cons.LeancloudConfig;
 import com.demo.book.utils.LogUtil;
 
 public class BookApplication extends Application {
@@ -22,6 +22,6 @@ public class BookApplication extends Application {
 
         LogUtil.d("test for upload");
         AVObject.registerSubclass(BookInfo.class);
-        AVOSCloud.initialize(this, Leancloud.KEY, Leancloud.VALUE);
+        AVOSCloud.initialize(this, LeancloudConfig.APP_ID, LeancloudConfig.APP_KEY);
     }
 }

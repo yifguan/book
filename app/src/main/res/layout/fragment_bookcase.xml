@@ -25,26 +25,22 @@
         android:layout_height="8dp">
     </LinearLayout>
 
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:fab="http://schemas.android.com/apk/res-auto"
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.handmark.pulltorefresh.library.PullToRefreshListView
-            android:id="@+id/bookcasePtrlist"
-            android:layout_height="fill_parent"
-            android:layout_width="fill_parent" />
-        <!--<ListView-->
-            <!--android:id="@+id/list_view"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:cacheColorHint="#00000000"-->
-            <!--android:horizontalSpacing="10dp"-->
-            <!--android:scrollbars="none"-->
-            <!--android:verticalSpacing="9dp"-->
-            <!--android:footerDividersEnabled="false">-->
-        <!--</ListView>-->
+        <ListView
+            android:id="@+id/list_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:cacheColorHint="#00000000"
+            android:horizontalSpacing="10dp"
+            android:scrollbars="none"
+            android:verticalSpacing="9dp"
+            android:footerDividersEnabled="false">
+        </ListView>
 
         <!--<com.github.clans.fab.FloatingActionButton-->
             <!--android:id="@+id/add_item"-->
@@ -58,6 +54,6 @@
             <!--fab:fab_colorPressed="@color/app_primary_pressed"-->
             <!--fab:fab_colorRipple="@color/app_ripple"/>-->
 
-    </FrameLayout>
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </LinearLayout>
