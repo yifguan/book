@@ -20,19 +20,15 @@
         </TextView>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="8dp">
-    </LinearLayout>
-
     <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:fab="http://schemas.android.com/apk/res-auto"
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:id="@+id/bookcaseswipe">
 
         <ListView
-            android:id="@+id/list_view"
+            android:id="@+id/bookcaselist"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:cacheColorHint="#00000000"
@@ -41,18 +37,6 @@
             android:verticalSpacing="9dp"
             android:footerDividersEnabled="false">
         </ListView>
-
-        <!--<com.github.clans.fab.FloatingActionButton-->
-            <!--android:id="@+id/add_item"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_gravity="bottom|right"-->
-            <!--android:layout_marginBottom="8dp"-->
-            <!--android:layout_marginRight="8dp"-->
-            <!--android:src="@drawable/fab_add"-->
-            <!--fab:fab_colorNormal="@color/app_primary"-->
-            <!--fab:fab_colorPressed="@color/app_primary_pressed"-->
-            <!--fab:fab_colorRipple="@color/app_ripple"/>-->
 
     </android.support.v4.widget.SwipeRefreshLayout>
 

@@ -11,7 +11,7 @@ import android.app.Application;
 
 import com.avos.avoscloud.AVOSCloud;
 import com.avos.avoscloud.AVObject;
-import com.demo.book.bean.BookInfo;
+import com.demo.book.bean.AVBookInfo;
 import com.demo.book.cons.LeancloudConfig;
 import com.demo.book.utils.LogUtil;
 
@@ -21,7 +21,21 @@ public class BookApplication extends Application {
         super.onCreate();
 
         LogUtil.d("test for upload");
-        AVObject.registerSubclass(BookInfo.class);
+        AVObject.registerSubclass(AVBookInfo.class);
         AVOSCloud.initialize(this, LeancloudConfig.APP_ID, LeancloudConfig.APP_KEY);
+        //testForBookInfo();
+    }
+
+    public void testForBookInfo() {
+        for (int i = 0; i < 10; i++) {
+            AVBookInfo bookInfo = new AVBookInfo();
+            bookInfo.setOwner("pang");
+            bookInfo.setAuthor("pangyi");
+            bookInfo.setName("kid " + i);
+            bookInfo.setPublisher("in kid");
+            bookInfo.setSummary("this book " + i + "is bad");
+            bookInfo.setStatus(true);
+            bookInfo.saveInBackground();
+        }
     }
 }

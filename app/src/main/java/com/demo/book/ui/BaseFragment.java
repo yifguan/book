@@ -8,7 +8,6 @@
 package com.demo.book.ui;
 
 
-import android.os.Build;
 import android.support.v4.app.Fragment;
 
 import com.demo.book.utils.LogUtil;
@@ -20,16 +19,14 @@ public abstract class BaseFragment extends Fragment {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
-            if (getUserVisibleHint()) {
-                isVisible = true;
-                onVisible();
-                LogUtil.d("visible");
-            } else {
-                isVisible = false;
-                onInvisible();
-                LogUtil.d("invisible");
-            }
+        if (getUserVisibleHint()) {
+            isVisible = true;
+            onVisible();
+            LogUtil.d("visible");
+        } else {
+            isVisible = false;
+            onInvisible();
+            LogUtil.d("invisible");
         }
     }
 
