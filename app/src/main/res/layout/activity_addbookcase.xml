@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:id="@+id/head"
+        android:layout_width="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_height="@dimen/height_topmenu"
+        android:background="@color/appgreen"
+        android:orientation="horizontal" >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/add_my_book"
+            android:textColor="@color/text_topmenu"
+            android:background="@null"
+            android:textSize="@dimen/big_fontsize">
+        </TextView>
+
+        <ImageView
+            android:id="@+id/back_img"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:padding="8dp"
+            android:src="@drawable/tb_icon_actionbar_back" />
+    </FrameLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="8dp">
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/white">
+
+        <ImageSwitcher
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            ></ImageSwitcher>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/white">
+        <TextView
+            style="@style/BookcaseItemAdd1"
+            android:text="@string/bookname"
+            android:layout_width="wrap_content" />
+        <EditText
+            android:id="@+id/booknameedit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="5dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="4dp">
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/white">
+        <TextView
+            style="@style/BookcaseItemAdd1"
+            android:text="@string/bookauthor" />
+        <EditText
+            android:id="@+id/bookauthoredit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="5dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="4dp">
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/white">
+        <TextView
+            style="@style/BookcaseItemAdd1"
+            android:text="@string/bookpublisher" />
+        <EditText
+            android:id="@+id/bookpublisheredit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="5dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="4dp">
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/white">
+        <TextView
+            style="@style/BookcaseItemAdd1"
+            android:text="@string/bookstatus"/>
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/status_rent_text"
+            android:layout_marginLeft="20dp"
+            android:id="@+id/bookstatuscheckbox"
+            android:checked="false" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="4dp">
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/white">
+        <TextView
+            style="@style/BookcaseItemAdd1"
+            android:text="@string/booksummary"/>
+        <EditText
+            android:id="@+id/booksummaryedit"
+            android:layout_width="385dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="5dp"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="4dp">
+    </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/sub_btn"
+        android:textSize="18sp"
+        android:layout_margin="30dp"
+        android:textColor="@color/white"
+        android:background="@color/appgreen"
+        android:text="提交"/>
+
+</LinearLayout>

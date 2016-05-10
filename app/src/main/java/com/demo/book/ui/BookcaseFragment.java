@@ -49,6 +49,7 @@ public class BookcaseFragment extends BaseFragment implements BookPresenter.UIVi
         if (mFragmentView == null) {
             mFragmentView = inflater.inflate(R.layout.fragment_bookcase, container, false);
             mBookPresenter = new BookPresenter(getActivity(), this);
+            bookInfoAdapter = new BookInfoAdapter(getActivity());
             initDatas();
             initViews();
             isPrepared = true;
@@ -58,7 +59,6 @@ public class BookcaseFragment extends BaseFragment implements BookPresenter.UIVi
         if (parent != null) {
             parent.removeView(mFragmentView);
         }
-
 
         swipeRefreshLayout = (SwipeRefreshLayout) mFragmentView.findViewById(R.id.bookcaseswipe);
 
@@ -70,13 +70,25 @@ public class BookcaseFragment extends BaseFragment implements BookPresenter.UIVi
             }
         });
 
-        bookInfoAdapter = new BookInfoAdapter(getActivity());
         bookList = (ListView) mFragmentView.findViewById(R.id.bookcaselist);
         bookList.setAdapter(bookInfoAdapter);
         if (bookinfolist != null)
             bookInfoAdapter.setList(bookinfolist);
 
+        mFragmentView.findViewById(R.id.add_item).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AddBookcaseActivity.startAddBookcaseActivity(getActivity());
+            }
+        });
+
         return mFragmentView;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        LogUtil.d(TAG, "onDestroy");
     }
 
     void initDatas() {

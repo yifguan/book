@@ -16,6 +16,7 @@ public class AVBookInfo extends AVObject {
     public static final Creator CREATOR = AVObjectCreator.instance;
 
     public static final String OWNER = "owner";   //书籍所有者
+//    public static final String Phone = "";
     public static final String STATUS = "status";  //书籍的状态
     public static final String NAME = "name";
     public static final String AUTHOR = "author";
