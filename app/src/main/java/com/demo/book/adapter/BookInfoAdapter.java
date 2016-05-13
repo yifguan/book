@@ -75,7 +75,7 @@ public class BookInfoAdapter extends BaseAdapter {
         // 设置ListView的相关值
         title.setText(book.getName());
         author.setText(book.getAuthor());
-        status.setText(book.getStatus() ? "可借" : "已借出");
+        status.setText(book.getStatus() ? "已借出" : "正常");
         return vi;
     }
 }

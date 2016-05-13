@@ -95,4 +95,9 @@ public class BookmarketFragment extends BaseFragment implements BookPresenter.UI
         this.bookinfolist = list;
         swipeRefreshLayout.setRefreshing(false);
     }
+
+    @Override
+    public void logout() {
+
+    }
 }

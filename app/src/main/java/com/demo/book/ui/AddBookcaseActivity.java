@@ -14,15 +14,22 @@ import android.view.View;
 import android.view.Window;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.SaveCallback;
 import com.demo.book.R;
 import com.demo.book.bean.AVBookInfo;
+import com.demo.book.service.StatusService;
+import com.demo.book.utils.LogUtil;
 
-public class AddBookcaseActivity extends BaseActivity implements View.OnClickListener {
+public class AddBookcaseActivity extends BaseActivity{
 
     private AVBookInfo bookInfo;
     private EditText nameEdit, authorEdit, publisherEdit, summaryEdit;
     private CheckBox statusChk;
+    private String loginUser;
+    private Context mContext;
 
 
     public static void startAddBookcaseActivity(Context context) {
@@ -41,6 +48,8 @@ public class AddBookcaseActivity extends BaseActivity implements View.OnClickLis
 
     private void initData() {
         bookInfo = new AVBookInfo();
+        loginUser = new StatusService(this).getUserName();
+        mContext = this;
     }
 
     private void initView() {
@@ -49,11 +58,30 @@ public class AddBookcaseActivity extends BaseActivity implements View.OnClickLis
         publisherEdit = (EditText) findViewById(R.id.bookpublisheredit);
         summaryEdit = (EditText) findViewById(R.id.booksummaryedit);
         statusChk = (CheckBox) findViewById(R.id.bookstatuscheckbox);
-    }
 
-    @Override
-    public void onClick(View v) {
-        bookInfo.setName(nameEdit.getText().toString());
-        
+        findViewById(R.id.sub_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bookInfo.setName(nameEdit.getText().toString());
+                bookInfo.setAuthor(authorEdit.getText().toString());
+                bookInfo.setOwner(loginUser);
+                bookInfo.setPublisher(publisherEdit.getText().toString());
+                bookInfo.setSummary(summaryEdit.getText().toString());
+                bookInfo.setStatus(statusChk.isChecked());
+
+                bookInfo.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(AVException e) {
+                        if (e == null) {
+                            LogUtil.d("save compelte");
+                            finish();
+                        } else {
+                            LogUtil.d("error " + e.getCode() + "in " + e.getCause());
+                            Toast.makeText(mContext, "保存出错，请稍后重试", Toast.LENGTH_SHORT);
+                        }
+                    }
+                });
+            }
+        });
     }
 }

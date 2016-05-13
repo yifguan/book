@@ -17,7 +17,7 @@ public class AVBookInfo extends AVObject {
 
     public static final String OWNER = "owner";   //书籍所有者
 //    public static final String Phone = "";
-    public static final String STATUS = "status";  //书籍的状态
+    public static final String STATUS = "status";  //书籍的状态 true 已借出 false 正常
     public static final String NAME = "name";
     public static final String AUTHOR = "author";
     public static final String PUBLISHER = "publisher";

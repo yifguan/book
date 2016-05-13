@@ -7,6 +7,7 @@
  */
 package com.demo.book.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -20,6 +21,7 @@ import com.demo.book.R;
 import com.demo.book.adapter.BookInfoAdapter;
 import com.demo.book.bean.AVBookInfo;
 import com.demo.book.presenter.BookPresenter;
+import com.demo.book.ui.account.LoginActivity;
 import com.demo.book.utils.LogUtil;
 
 import java.util.List;
@@ -82,6 +84,22 @@ public class BookcaseFragment extends BaseFragment implements BookPresenter.UIVi
             }
         });
 
+        mFragmentView.findViewById(R.id.logoutimage).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LogoutDialog logoutDialog = new LogoutDialog(getActivity(), new LogoutDialog.onClickListener() {
+                    @Override
+                    public void onComfirm() {
+                        mBookPresenter.logout();
+                    }
+                    @Override
+                    public void onCancel() {
+                    }
+                });
+                logoutDialog.show();
+            }
+        });
+
         return mFragmentView;
     }
 
@@ -103,6 +121,12 @@ public class BookcaseFragment extends BaseFragment implements BookPresenter.UIVi
         if (!isPrepared || !isVisible) {
             return;
         }
+    }
+
+    @Override
+    public void logout() {
+        Intent intent = new Intent(getActivity(), LoginActivity.class);
+        startActivity(intent);
     }
 
     @Override

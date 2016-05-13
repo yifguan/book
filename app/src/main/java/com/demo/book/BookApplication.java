@@ -16,6 +16,25 @@ import com.demo.book.cons.LeancloudConfig;
 import com.demo.book.utils.LogUtil;
 
 public class BookApplication extends Application {
+    private static boolean isLogin;
+    private static String User = "guan";
+
+    public static boolean isLogin() {
+        return isLogin;
+    }
+
+    public static void setLogin(boolean login) {
+        isLogin = login;
+    }
+
+    public static String getUser() {
+        return User;
+    }
+
+    public static void setUser(String user) {
+        User = user;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();

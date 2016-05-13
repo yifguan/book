@@ -7,6 +7,8 @@
  */
 package com.demo.book.ui;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
@@ -24,6 +26,11 @@ import com.demo.book.utils.ExitAppUtils;
 public class MainActivity extends FragmentActivity {
     private FragmentTabHost mTabHost;
     private LayoutInflater layoutInflater;
+
+    public static void actionStart(Context context) {
+        Intent intent = new Intent(context, MainActivity.class);
+        context.startActivity(intent);
+    }
 
     final class MainTap{
         String tabTxt;
