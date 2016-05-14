@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.SaveCallback;
 import com.demo.book.R;
 import com.demo.book.bean.AVBookInfo;
@@ -28,7 +29,7 @@ public class AddBookcaseActivity extends BaseActivity{
     private AVBookInfo bookInfo;
     private EditText nameEdit, authorEdit, publisherEdit, summaryEdit;
     private CheckBox statusChk;
-    private String loginUser;
+    private AVUser loginUser;
     private Context mContext;
 
 
@@ -48,7 +49,7 @@ public class AddBookcaseActivity extends BaseActivity{
 
     private void initData() {
         bookInfo = new AVBookInfo();
-        loginUser = new StatusService(this).getUserName();
+        loginUser = StatusService.getInstance().getUser();
         mContext = this;
     }
 
@@ -59,12 +60,20 @@ public class AddBookcaseActivity extends BaseActivity{
         summaryEdit = (EditText) findViewById(R.id.booksummaryedit);
         statusChk = (CheckBox) findViewById(R.id.bookstatuscheckbox);
 
+        findViewById(R.id.back_img).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         findViewById(R.id.sub_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 bookInfo.setName(nameEdit.getText().toString());
                 bookInfo.setAuthor(authorEdit.getText().toString());
-                bookInfo.setOwner(loginUser);
+                bookInfo.setOwner(loginUser.getUsername());
+                bookInfo.setPhone(loginUser.getMobilePhoneNumber());
                 bookInfo.setPublisher(publisherEdit.getText().toString());
                 bookInfo.setSummary(summaryEdit.getText().toString());
                 bookInfo.setStatus(statusChk.isChecked());
@@ -74,6 +83,7 @@ public class AddBookcaseActivity extends BaseActivity{
                     public void done(AVException e) {
                         if (e == null) {
                             LogUtil.d("save compelte");
+                            Toast.makeText(mContext, "保存成功", Toast.LENGTH_SHORT);
                             finish();
                         } else {
                             LogUtil.d("error " + e.getCode() + "in " + e.getCause());

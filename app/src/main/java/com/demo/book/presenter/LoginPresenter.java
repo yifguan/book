@@ -9,58 +9,50 @@ package com.demo.book.presenter;
 
 import android.content.Context;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.LogInCallback;
 import com.demo.book.service.StatusService;
 import com.demo.book.utils.LogUtil;
 
 
-public class LoginPresenter implements LoginInteractor.OnLoginFinishedListner {
+public class LoginPresenter {
 
+    AVUser avUser;
     ILoginView mLoginView;
-    LoginInteractor mLoginInteractor;
     StatusService statusService;
     Context mContext;
-    private String userName;
 
     public LoginPresenter(Context context,ILoginView view) {
         mContext = context;
         mLoginView = view;
-        mLoginInteractor = new LoginInteractor();
-        statusService = new StatusService(mContext);
+        statusService = StatusService.getInstance();
     }
 
     public void validateCredentials(String username, String password) {
-        if (mLoginInteractor != null) {
-            mLoginInteractor.login(username, password, this);
-            this.userName = username;
-        }
-        if (mLoginView != null) {
-            mLoginView.showProgress();
-        }
+        avUser = statusService.getUser();
+        avUser.logOut();
+        avUser.logInInBackground(username, password, new LogInCallback<AVUser>() {
+            @Override
+            public void done(AVUser avUser, AVException e) {
+                if (e != null) {
+                    LogUtil.d("login " + e.getMessage());
+                    statusService.setLoginin(false, null);
+                    mLoginView.onFailed();
+                } else {
+                    statusService.setLoginin(true, avUser);
+                    mLoginView.onSuccess();
+                }
+            }
+        });
     }
 
     public void onDestroy() {
         mLoginView = null;
     }
 
-    @Override
-    public void onSuccess() {
-        statusService.setLoginin(true,userName);
-        mLoginView.gotoMainUI();
-    }
-
-    @Override
-    public void onFailed() {
-    }
-
-    @Override
-    public void onVerification() {
-        LogUtil.d("onVerification");
-    }
-
-
     public interface ILoginView {
-        void showProgress();
-        void hideProgress();
-        void gotoMainUI();
+        void onSuccess();
+        void onFailed();
     }
 }

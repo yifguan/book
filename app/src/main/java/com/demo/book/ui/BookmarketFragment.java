@@ -7,36 +7,36 @@
  */
 package com.demo.book.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.avos.avoscloud.AVUser;
 import com.demo.book.R;
 import com.demo.book.adapter.BookInfoAdapter;
 import com.demo.book.bean.AVBookInfo;
 import com.demo.book.presenter.BookPresenter;
+import com.demo.book.service.StatusService;
 
 import java.util.List;
 
-public class BookmarketFragment extends BaseFragment implements BookPresenter.UIView {
+public class BookmarketFragment extends BaseFragment implements BookPresenter.UIView, AdapterView.OnItemClickListener {
     private View mFragmentView;
     private boolean isPrepared;
-    private boolean mHasLoadedOnce;
 
-    private ListView listView;
-
-    private Handler mHandler;
-    private static int index;
     private SwipeRefreshLayout swipeRefreshLayout;
     private BookPresenter mBookPresenter;
     private BookInfoAdapter bookInfoAdapter;
     private ListView bookList;
     private List<AVBookInfo> bookinfolist;
+    private AVUser avUser;
+    private StatusService statusService;
 
     @Nullable
     @Override
@@ -44,6 +44,8 @@ public class BookmarketFragment extends BaseFragment implements BookPresenter.UI
         if (mFragmentView == null) {
             mFragmentView = inflater.inflate(R.layout.fragment_bookmarket, container, false);
             mBookPresenter = new BookPresenter(getActivity(), this);
+            bookInfoAdapter = new BookInfoAdapter(getActivity());
+            statusService = StatusService.getInstance();
             initDatas();
             initViews();
             isPrepared = true;
@@ -60,22 +62,23 @@ public class BookmarketFragment extends BaseFragment implements BookPresenter.UI
             @Override
             public void onRefresh() {
                 //Todo: refresh data here
-                mBookPresenter.getAllBook();
+                mBookPresenter.getAllBookButOwner(avUser.getUsername());
             }
         });
 
         bookInfoAdapter = new BookInfoAdapter(getActivity());
         bookList = (ListView) mFragmentView.findViewById(R.id.bookmarketlist);
         bookList.setAdapter(bookInfoAdapter);
-        if (bookinfolist != null) {
+        if (bookinfolist != null)
             bookInfoAdapter.setList(bookinfolist);
-        }
+        bookList.setOnItemClickListener(this);
 
         return mFragmentView;
     }
 
     void initDatas() {
-        mBookPresenter.getAllBook();
+        avUser = statusService.getUser();
+        mBookPresenter.getAllBookButOwner(avUser.getUsername());
     }
 
     void initViews() {
@@ -83,7 +86,7 @@ public class BookmarketFragment extends BaseFragment implements BookPresenter.UI
 
     @Override
     protected void lazyLoad() {
-        if (!isPrepared || !isVisible || mHasLoadedOnce) {
+        if (!isPrepared || !isVisible) {
             return;
         }
     }
@@ -99,5 +102,24 @@ public class BookmarketFragment extends BaseFragment implements BookPresenter.UI
     @Override
     public void logout() {
 
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        ListView listView = (ListView) parent;
+        AVBookInfo bookInfo = (AVBookInfo) listView.getItemAtPosition(position);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("bookinfo", bookInfo);
+        Intent intent = new Intent(getActivity(), BookDetailActivity.class);
+        intent.putExtra("bundle", bundle);
+        startActivityForResult(intent, 0);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == 0) {
+            mBookPresenter.getAllBookButOwner(avUser.getUsername());
+        }
     }
 }

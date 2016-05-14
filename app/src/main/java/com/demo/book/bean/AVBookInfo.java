@@ -16,7 +16,7 @@ public class AVBookInfo extends AVObject {
     public static final Creator CREATOR = AVObjectCreator.instance;
 
     public static final String OWNER = "owner";   //书籍所有者
-//    public static final String Phone = "";
+    public static final String PHONE = "phone";
     public static final String STATUS = "status";  //书籍的状态 true 已借出 false 正常
     public static final String NAME = "name";
     public static final String AUTHOR = "author";
@@ -32,6 +32,14 @@ public class AVBookInfo extends AVObject {
 
     public void setOwner(String owner) {
         put(OWNER, owner);
+    }
+
+    public void setPhone(String phone) {
+        put(PHONE, phone);
+    }
+
+    public String getPhone() {
+        return getString(PHONE);
     }
 
     public Boolean getStatus() {

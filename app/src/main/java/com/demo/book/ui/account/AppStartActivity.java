@@ -22,7 +22,7 @@ public class AppStartActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        isLoginin = new StatusService(this).isLoginin();
+        isLoginin = StatusService.getInstance().isLoginin();
         if (isLoginin) {
             MainActivity.actionStart(this);
         } else {

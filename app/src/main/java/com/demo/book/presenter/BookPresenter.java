@@ -27,12 +27,27 @@ public class BookPresenter {
     public BookPresenter(Context context, UIView view){
         this.mContext = context;
         this.mUIView = view;
-        statusService = new StatusService(mContext);
+        statusService = StatusService.getInstance();
     }
 
     public void getBookFromOwner(String owner) {
         AVQuery<AVBookInfo> query = AVObject.getQuery(AVBookInfo.class);
         query.whereEqualTo(AVBookInfo.OWNER, owner);
+        query.orderByDescending("createdAt");
+        query.findInBackground(new FindCallback<AVBookInfo>() {
+            @Override
+            public void done(List<AVBookInfo> results, AVException e) {
+                for (AVBookInfo a : results) {
+                    //LogUtil.d("book: " + a);
+                }
+                mUIView.updateList(results);
+            }
+        });
+    }
+
+    public void getAllBookButOwner(String owner) {
+        AVQuery<AVBookInfo> query = AVObject.getQuery(AVBookInfo.class);
+        query.whereNotEqualTo(AVBookInfo.OWNER, owner);
         query.orderByDescending("createdAt");
         query.findInBackground(new FindCallback<AVBookInfo>() {
             @Override
@@ -60,7 +75,7 @@ public class BookPresenter {
     }
 
     public void logout(){
-        statusService.setLoginin(false,"");
+        statusService.setLoginin(false, null);
         mUIView.logout();
     }
 

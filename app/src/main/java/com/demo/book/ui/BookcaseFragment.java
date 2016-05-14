@@ -15,26 +15,32 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
+import com.avos.avoscloud.AVUser;
 import com.demo.book.R;
 import com.demo.book.adapter.BookInfoAdapter;
 import com.demo.book.bean.AVBookInfo;
 import com.demo.book.presenter.BookPresenter;
+import com.demo.book.service.StatusService;
 import com.demo.book.ui.account.LoginActivity;
 import com.demo.book.utils.LogUtil;
 
 import java.util.List;
 
-public class BookcaseFragment extends BaseFragment implements BookPresenter.UIView {
+
+public class BookcaseFragment extends BaseFragment implements BookPresenter.UIView, AdapterView.OnItemClickListener {
     public final static String TAG = "BookcaseFragment";
 
     private View mFragmentView;
     private boolean isPrepared;
     private boolean mHasLoadedOnce = false;
+    private TextView tvUsername;
+    private AVUser avUser;
 
-    private ListView listView;
-
+    private StatusService statusService;
     private Handler mHandler;
     private static int index;
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -52,6 +58,7 @@ public class BookcaseFragment extends BaseFragment implements BookPresenter.UIVi
             mFragmentView = inflater.inflate(R.layout.fragment_bookcase, container, false);
             mBookPresenter = new BookPresenter(getActivity(), this);
             bookInfoAdapter = new BookInfoAdapter(getActivity());
+            statusService = StatusService.getInstance();
             initDatas();
             initViews();
             isPrepared = true;
@@ -68,7 +75,7 @@ public class BookcaseFragment extends BaseFragment implements BookPresenter.UIVi
             @Override
             public void onRefresh() {
                 //Todo: refresh data here
-                mBookPresenter.getBookFromOwner("guan");
+                mBookPresenter.getBookFromOwner(avUser.getUsername());
             }
         });
 
@@ -76,29 +83,7 @@ public class BookcaseFragment extends BaseFragment implements BookPresenter.UIVi
         bookList.setAdapter(bookInfoAdapter);
         if (bookinfolist != null)
             bookInfoAdapter.setList(bookinfolist);
-
-        mFragmentView.findViewById(R.id.add_item).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AddBookcaseActivity.startAddBookcaseActivity(getActivity());
-            }
-        });
-
-        mFragmentView.findViewById(R.id.logoutimage).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                LogoutDialog logoutDialog = new LogoutDialog(getActivity(), new LogoutDialog.onClickListener() {
-                    @Override
-                    public void onComfirm() {
-                        mBookPresenter.logout();
-                    }
-                    @Override
-                    public void onCancel() {
-                    }
-                });
-                logoutDialog.show();
-            }
-        });
+        bookList.setOnItemClickListener(this);
 
         return mFragmentView;
     }
@@ -110,10 +95,38 @@ public class BookcaseFragment extends BaseFragment implements BookPresenter.UIVi
     }
 
     void initDatas() {
-        mBookPresenter.getBookFromOwner("guan");
+        avUser = statusService.getUser();
+        mBookPresenter.getBookFromOwner(avUser.getUsername());
     }
 
     void initViews() {
+        tvUsername = (TextView) mFragmentView.findViewById(R.id.account);
+        tvUsername.setText(avUser.getUsername());
+
+        mFragmentView.findViewById(R.id.add_item).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), AddBookcaseActivity.class);
+                startActivityForResult(intent, 0);
+            }
+        });
+
+        mFragmentView.findViewById(R.id.logoutimage).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LogoutDialog logoutDialog = new LogoutDialog(getActivity(), new LogoutDialog.onClickListener() {
+                    @Override
+                    public void onComfirm() {
+                        mBookPresenter.logout();
+                    }
+
+                    @Override
+                    public void onCancel() {
+                    }
+                });
+                logoutDialog.show();
+            }
+        });
     }
 
     @Override
@@ -135,5 +148,25 @@ public class BookcaseFragment extends BaseFragment implements BookPresenter.UIVi
         bookInfoAdapter.notifyDataSetChanged();
         this.bookinfolist = list;
         swipeRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        ListView listView = (ListView) parent;
+        AVBookInfo bookInfo = (AVBookInfo) listView.getItemAtPosition(position);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("bookinfo", bookInfo);
+        Intent intent = new Intent(getActivity(), BookDetailActivity.class);
+        intent.putExtra("bundle", bundle);
+        startActivityForResult(intent, 0);
+        LogUtil.d(TAG, "book is " + bookInfo.toJSONObject());
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == 0) {
+            mBookPresenter.getBookFromOwner(avUser.getUsername());
+        }
     }
 }

@@ -26,4 +26,7 @@
     <string name="login_password_hint_again">请再次确认密码</string>
     <string name="action_signup">提交注册</string>
     <string name="phone_hint">请输入手机号码</string>
+
+    <string name="book_detail_title">书籍详情</string>
+    <string name="bookowner">联系电话</string>
 </resources>

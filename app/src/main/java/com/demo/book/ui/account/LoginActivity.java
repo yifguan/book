@@ -57,6 +57,7 @@ public class LoginActivity extends Activity implements LoginPresenter.ILoginView
         btnSignup.setOnClickListener(this);
 
         loginProgress = new ProgressDialog(this);
+        loginProgress.setMessage("正在登录");
     }
 
     @Override
@@ -66,26 +67,30 @@ public class LoginActivity extends Activity implements LoginPresenter.ILoginView
     }
 
     @Override
-    public void showProgress() {
-        loginProgress.show();
-    }
-
-    @Override
-    public void hideProgress() {
+    public void onSuccess() {
         loginProgress.dismiss();
-    }
-
-    @Override
-    public void gotoMainUI() {
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void onFailed() {
+        loginProgress.dismiss();
+        Toast.makeText(this, "用户名或密码错误", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.sign_in_button:
-                mLoginPresenter.validateCredentials(etUsername.getText().toString(), etPassword.getText().toString());
+                if (etUsername.getText().length() == 0) {
+                    Toast.makeText(this, "用户名不能为空", Toast.LENGTH_SHORT).show();
+                } else if(etPassword.getText().length() == 0) {
+                    Toast.makeText(this, "密码不能为空", Toast.LENGTH_SHORT).show();
+                } else {
+                    loginProgress.show();
+                    mLoginPresenter.validateCredentials(etUsername.getText().toString(), etPassword.getText().toString());
+                }
                 break;
             case R.id.sign_up_button:
                 SignupActivity.actionStart(this);

@@ -66,8 +66,8 @@ public class BookInfoAdapter extends BaseAdapter {
             vi = inflater.inflate(R.layout.book_item_raw, null);
 
         TextView title = (TextView) vi.findViewById(R.id.title); // 标题
-        TextView author = (TextView) vi.findViewById(R.id.author); // 歌手名
-        TextView status = (TextView) vi.findViewById(R.id.status); // 时长
+        TextView author = (TextView) vi.findViewById(R.id.author); // 作者
+        TextView status = (TextView) vi.findViewById(R.id.status); // 状态
         ImageView thumb_image = (ImageView) vi.findViewById(R.id.list_image); // 缩略图
 
         AVBookInfo book = data.get(position);

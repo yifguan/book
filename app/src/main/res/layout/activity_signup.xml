@@ -40,30 +40,30 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
                 <EditText
-                    android:id="@+id/username_edit"
+                    android:id="@+id/signup_username_edit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/login_username_hint"
                     android:inputType="text"/>
 
                 <EditText
-                    android:id="@+id/password_edit"
+                    android:id="@+id/signup_password_edit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/login_password_hint"
                     android:inputType="textPassword"/>
                 <EditText
-                    android:id="@+id/password_comfirm_edit"
+                    android:id="@+id/signup_password_comfirm_edit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/login_password_hint_again"
                     android:inputType="textPassword"/>
                 <EditText
-                    android:id="@+id/phone_edit"
+                    android:id="@+id/signup_phone_edit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/phone_hint"
-                    android:inputType="text"/>
+                    android:inputType="phone"/>
                 <Button
                     android:id="@+id/sub_signup_button"
                     style="?android:textAppearanceSmall"
